@@ -11,7 +11,11 @@ mysql=MySQL(app)
  
 @app.route('/')
 def home():
-    return render_template('index.html')
+    cur= mysql.connection.cursor()
+    cur.execute('SELECT * FROM contacts')
+    data= cur.fetchall()
+    print(data)
+    return render_template('index.html', contacts=data)
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -31,7 +35,12 @@ def add():
                 (name,phone,email))
                 mysql.connection.commit()
                 return 'LOS DATOS SE INGRESARON CORRECTAMENTE' 
- 
+                
+@app.route('/get', methods=['GET'])
+def get():
+    if request.method == 'GET':  
+        return 'aa'
+
 if __name__=='__main__':
     app.run(port=3000,debug=True)  
     
