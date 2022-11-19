@@ -14,7 +14,7 @@ def home():
     cur= mysql.connection.cursor()
     cur.execute('SELECT * FROM contacts')
     data= cur.fetchall()
-    print(data)
+    
     return render_template('index.html', contacts=data)
 
 @app.route('/add', methods=['POST'])
@@ -35,7 +35,7 @@ def add():
                 (name,phone,email))
                 mysql.connection.commit()
                 return 'LOS DATOS SE INGRESARON CORRECTAMENTE' 
-                
+
 @app.route('/get', methods=['GET'])
 def get():
     if request.method == 'GET':  
