@@ -1,7 +1,7 @@
  
 from flask import Flask, render_template,request
 from flask_mysqldb import MySQL 
-import pickle
+ 
 app = Flask(__name__) 
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
@@ -16,6 +16,27 @@ def home():
     data= cur.fetchall()
     
     return render_template('index.html', contacts=data)
+
+@app.route('/search',methods=['POST'])   
+def search():
+     if request.method == 'POST':    
+        print(request.method)
+        search= request.form['search'] 
+        print(search)
+
+        if search=='1':
+           print('iss')
+           cur= mysql.connection.cursor()
+           cur.execute('SELECT * FROM contacts where id='+ search)
+           data= cur.fetchall() 
+        else:
+           print('a')
+           cur= mysql.connection.cursor()
+           cur.execute('SELECT * FROM contacts where name = "'+search +'" or phone = "'+search+'" or email = "'+search+'"')
+           data= cur.fetchall()
+       
+        return render_template('index.html', contacts=data)
+
 
 @app.route('/add', methods=['POST'])
 def add():
@@ -36,10 +57,7 @@ def add():
                 mysql.connection.commit()
                 return 'LOS DATOS SE INGRESARON CORRECTAMENTE' 
 
-@app.route('/get', methods=['GET'])
-def get():
-    if request.method == 'GET':  
-        return 'aa'
+ 
 
 if __name__=='__main__':
     app.run(port=3000,debug=True)  
