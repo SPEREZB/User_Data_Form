@@ -18,13 +18,19 @@ def add():
     if request.method == 'POST':  
         name= request.form['name']
         phone= request.form['phone']
-        email= request.form['email']  
-        print(name,phone,email)
-        cur= mysql.connection.cursor()
-        cur.execute('INSERT INTO contacts (name,phone,email) values (%s,%s,%s)', 
-        (name,phone,email))
-        mysql.connection.commit()
-        return 'LOS DATOS SE INGRESARON CORRECTAMENTE' 
+        email= request.form['email'] 
+        if name=='' or phone=='' or email=='':
+            return 'DEBE LLENAR TODOS LOS PARAMETROS DEL FORMULARIO' 
+        else:
+            if phone.__len__()!=10:
+                return 'EL NUMERO INGRESADO DEBE TENER 10 DIGITOS'  
+            else:
+                print(name,phone,email)
+                cur= mysql.connection.cursor()
+                cur.execute('INSERT INTO contacts (name,phone,email) values (%s,%s,%s)', 
+                (name,phone,email))
+                mysql.connection.commit()
+                return 'LOS DATOS SE INGRESARON CORRECTAMENTE' 
  
 if __name__=='__main__':
     app.run(port=3000,debug=True)  
