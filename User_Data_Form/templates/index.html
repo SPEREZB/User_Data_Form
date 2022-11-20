@@ -4,62 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-   
+    <link rel="stylesheet" href="../static/styles.css">
        <title>Document</title>
 </head>
-<body style="background-color: rgb(41, 127, 130);">
-    <header style="margin-left: 600px;  ">
-              <h3 style="background-color: cadetblue; text-align: center; width: max-content; border-radius: 40%; border-style: solid; padding: 10px;">
+<body>
+    <header class="home-header">
+              <h3 class="title">
                     FORMULARIO DE DATOS DE USUARIOS
               </h3>
 
-                <form style="margin-top: 50px;" action="/" method="POST"> 
+                <form action="/" method="POST"> 
                 <input type="text" name="search" placeholder="search">
                     
                 <button type="submit">SEARCH</button>
               </form> 
 
-              <form style="margin-top: 50px;" action="/" method="GET">   
-                <button style="position: relative; right: -40%; bottom: 70px; background-color: greenyellow;" type="submit">HOME</button>
+              <form class="form-return" action="/" method="GET">   
+                <button class="button-return" type="submit">HOME</button>
               </form> 
     </header> 
           
-    <main style="grid-template-columns: 2fr 2fr; display: grid;">
-      <form style="background-color: darkcyan; margin-left: 80px; text-align: justify; width: 30%; padding-left: 50px; border-radius: 20%; border-style: solid;
-      margin-top: 40px;" action="/add" method="POST"> 
-        <h3 style="margin-bottom: 20px; background-color: rgb(25, 106, 106); width: max-content;">NAME</h3>
+    <main class="home-main">
+      <form class="form-add" action="/add" method="POST"> 
+        <h3 class="title-add">NAME</h3>
         <input type="text" name="name" placeholder="name">
         <br>
-        <h3 style="margin-bottom: 20px;  background-color: rgb(25, 106, 106); width: max-content;">PHONE</h3>
+        <h3 class="title-add">PHONE</h3>
         <input type="text" name="phone" placeholder="phone">
         <br>
-        <h3 style="margin-bottom: 20px;  background-color: rgb(25, 106, 106); width: max-content;">EMAIL</h3>
+        <h3 class="title-add">EMAIL</h3>
         <input type="text" name="email" placeholder="email">
         <br>
-        <button style="margin-top: 40px; margin-bottom: 20px; background-color: greenyellow;font-size: 20px;" type="submit"> SAVE </button>
+        <button class="button-add"> SAVE </button>
      </form> 
-          <table class="table table-primary" style="margin-top: 40px;position: relative; right: 200px;">
+          <table class="table-get">
         
             <thead>
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">NAME</th>
                 <th scope="col">PHONE</th>
-                <th style="position: relative; left: -100px;" scope="col">EMAIL</th>
-              </tr>
+                <th class="email-get">EMAIL</th>
+              </tr> 
             </thead>
-            <tbody style="position: relative;">
-            
+            <tbody> 
               {% for cont in contacts %}
-              <tr class="">
-                <td style="position: relative; left: 20px; top: -15px;">{{cont.0}}</td>
-                <td style="position: relative; left: 50px; top: -15px;">{{cont.1}}</td>
-                <td style="position: relative; left: 70px; top: -15px;">{{cont.2}}</td>
-                <td style="position: relative; left: 50px; top: -15px;">{{cont.3}}</td>
+              <tr>
+                <td class="dates-get">{{cont.0}}</td>
+                <td class="dates-get--left50px">{{cont.1}}</td>
+                <td class="dates-get--left70px">{{cont.2}}</td>
+                <td class="dates-get--left50px">{{cont.3}}</td>
               </tr> 
               {% endfor %}
-            </tbody> 
-        
+            </tbody>  
           </table>  
     </main>
 </body>
