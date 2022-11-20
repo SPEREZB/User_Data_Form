@@ -19,12 +19,20 @@
                 <button type="submit">SEARCH</button>
               </form> 
 
-              <form class="form-return" action="/" method="GET">   
+              <form class="form-return" action="/">   
                 <button class="button-return" type="submit">HOME</button>
               </form> 
+
+              {% with messages= get_flashed_messages() %}
+              {% if messages %}
+                {% for mess in messages%}
+                 <h5 class="message-alert">{{mess}}</h5>
+                 {% endfor %}
+              {% endif %}
+              {% endwith %}
     </header> 
           
-    <main class="home-main">
+    <main class="home-main"> 
       <form class="form-add" action="/add" method="POST"> 
         <h3 class="title-add">NAME</h3>
         <input type="text" name="name" placeholder="name">

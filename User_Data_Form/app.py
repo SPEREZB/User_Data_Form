@@ -1,8 +1,13 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,flash,redirect,url_for
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
+
+#options
+app.secret_key='mysecretkey'
+
+#mysql
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '123'
@@ -13,6 +18,7 @@ mysql = MySQL(app)
 @app.route('/',methods=['GET','POST'])
 def home():
     if request.method == 'GET':
+        print('aaa')
         cur = mysql.connection.cursor()
         cur.execute('SELECT * FROM contacts')
         data = cur.fetchall()
@@ -22,13 +28,13 @@ def home():
         search = request.form['search']
         print(search)
 
-        if search == '1':
-            print('iss')
+        if search >= '1':
+        
             cur = mysql.connection.cursor()
             cur.execute('SELECT * FROM contacts where id=' + search)
             data = cur.fetchall()
         else:
-            print('a')
+         
             cur = mysql.connection.cursor()
             cur.execute('SELECT * FROM contacts where name = "'+search +
                         '" or phone = "'+search+'" or email = "'+search+'"')
@@ -44,17 +50,20 @@ def add():
         phone = request.form['phone']
         email = request.form['email']
         if name == '' or phone =='' or email=='':
-            return 'DEBE LLENAR TODOS LOS PARAMETROS DEL FORMULARIO'
+            flash('DEBE LLENAR TODOS LOS PARAMETROS DEL FORMULARIO')
+            return redirect(url_for('home'))
         else:
             if phone.__len__() != 10:
-                return 'EL NUMERO INGRESADO DEBE TENER 10 DIGITOS'
+                flash('EL NUMERO INGRESADO DEBE TENER 10 DIGITOS')
+                return redirect(url_for('home'))
             else:
                 print(name, phone, email)
                 cur = mysql.connection.cursor()
                 cur.execute('INSERT INTO contacts (name,phone,email) values (%s,%s,%s)',
                             (name, phone, email))
                 mysql.connection.commit()
-                return 'LOS DATOS SE INGRESARON CORRECTAMENTE'
+                flash('LOS DATOS SE INGRESARON CORRECTAMENTE')
+                return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
