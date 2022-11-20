@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   
        <title>Document</title>
 </head>
 <body style="background-color: rgb(41, 127, 130);">
@@ -13,10 +13,14 @@
                     FORMULARIO DE DATOS DE USUARIOS
               </h3>
 
-                 <form style="margin-top: 50px;" action="/search" method="POST"> 
+                <form style="margin-top: 50px;" action="/" method="POST"> 
                 <input type="text" name="search" placeholder="search">
                     
                 <button type="submit">SEARCH</button>
+              </form> 
+
+              <form style="margin-top: 50px;" action="/" method="GET">   
+                <button style="position: relative; right: -40%; bottom: 70px; background-color: greenyellow;" type="submit">HOME</button>
               </form> 
     </header> 
           
@@ -56,8 +60,7 @@
               {% endfor %}
             </tbody> 
         
-          </table> 
-          
+          </table>  
     </main>
 </body>
 </html>
